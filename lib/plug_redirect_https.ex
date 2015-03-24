@@ -2,14 +2,14 @@
 defmodule PlugRedirectHttps do
   require Logger
 
-  @forwarded_proto_header "x-forwarded-proto"
-  @forwarded_host_header "x-forwarded-host"
+  @proto_header "x-forwarded-proto"
+  @host_header "host"
 
   @moduledoc """
   Redirect http to https behind a load balancer (or other reverse proxy).
 
   If an X-Forwarded-Proto header is present and it is "http", this plug will
-  redirect requests to the https protocol using the X-Forwarded-Host with the
+  redirect requests to the https protocol using the Host header with the
   path and query parameters of the current request.
 
   From the client's perspective the only change should be from http to https.
@@ -46,12 +46,12 @@ defmodule PlugRedirectHttps do
   end
 
   defp get_forwarded_protocol(conn) do
-    Plug.Conn.get_req_header(conn, @forwarded_proto_header)
+    Plug.Conn.get_req_header(conn, @proto_header)
     |> List.first
   end
 
   defp get_forwarded_host(conn) do
-    Plug.Conn.get_req_header(conn, @forwarded_host_header)
+    Plug.Conn.get_req_header(conn, @host_header)
     |> List.first
   end
 
