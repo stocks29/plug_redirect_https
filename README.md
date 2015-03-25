@@ -8,5 +8,5 @@ API documentation is available at http://hexdocs.pm/plug_redirect_https
 ### Add as dependency
 
 ```elixir
-{:plug_redirect_https, "~> 0.0.1"}
+{:plug_redirect_https, "~> 0.0.2"}
 ```
