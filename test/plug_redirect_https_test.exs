@@ -8,9 +8,10 @@ defmodule PlugRedirectHttpsTest do
   @path "/foo?bar=10"
 
   test "redirected to https when forwarded proto is http" do
-    headers = [{"x-forwarded-proto", "http"}, {"host", @host}]
-    conn = %Plug.Conn{status: status} = conn(:get, @path, nil, headers: headers)
-    |> Plug.Conn.fetch_params
+    conn = %Plug.Conn{status: status} = conn(:get, @path, nil) 
+    |> put_req_header("x-forwarded-proto", "http")
+    |> put_req_header("host", @host)
+    |> Plug.Conn.fetch_query_params
     |> PlugRedirectHttps.call(@default_opts)
 
     assert status == 302
@@ -19,27 +20,27 @@ defmodule PlugRedirectHttpsTest do
 
   test "request passes through when no forwarded proto" do
     %Plug.Conn{state: state} = conn(:get, @path)
-    |> Plug.Conn.fetch_params
+    |> Plug.Conn.fetch_query_params
     |> PlugRedirectHttps.call(@default_opts)
 
     assert state == :unset
   end
 
   test "request passes through when forwarded proto already https" do
-    headers = [{"x-forwarded-proto", "https"}, {"host", @host}]
-
-    %Plug.Conn{state: state} = conn(:get, @path, nil, headers: headers)
-    |> Plug.Conn.fetch_params
+    %Plug.Conn{state: state} = conn(:get, @path, nil)
+    |> put_req_header("x-forwarded-proto", "https")
+    |> put_req_header("host", @host)
+    |> Plug.Conn.fetch_query_params
     |> PlugRedirectHttps.call(@default_opts)
 
     assert state == :unset
   end
 
   test "request passes through when forwarded proto not http or https" do
-    headers = [{"x-forwarded-proto", "foo"}, {"host", @host}]
-
-    %Plug.Conn{state: state} = conn(:get, @path, nil, headers: headers)
-    |> Plug.Conn.fetch_params
+    %Plug.Conn{state: state} = conn(:get, @path, nil)
+    |> put_req_header("x-forwarded-proto", "foo")
+    |> put_req_header("host", @host)
+    |> Plug.Conn.fetch_query_params
     |> PlugRedirectHttps.call(@default_opts)
 
     assert state == :unset
