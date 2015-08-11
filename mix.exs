@@ -23,7 +23,7 @@ defmodule PlugRedirectHttps.Mixfile do
     [ contributors: ["Bob Stockdale"],
     licenses: ["MIT License"],
     links: %{
-      "GitHub" => "https://github.com/stocks29/plug_redirect_https.git", 
+      "GitHub" => "https://github.com/stocks29/plug_redirect_https.git",
       "Docs" => "http://hexdocs.pm/plug_redirect_https"
       }]
   end
@@ -46,7 +46,7 @@ defmodule PlugRedirectHttps.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:plug, "~> 0.12.2"},
+      {:plug, "~> 0.14"},
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.7", only: :dev}
     ]

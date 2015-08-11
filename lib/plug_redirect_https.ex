@@ -31,7 +31,7 @@ defmodule PlugRedirectHttps do
   """
   def call(conn, _opts) do
     conn
-    |> get_forwarded_protocol 
+    |> get_forwarded_protocol
     |> redirect_to_https?
     |> handle_request(conn)
   end
@@ -57,7 +57,7 @@ defmodule PlugRedirectHttps do
 
   defp redirect_to_https?("http"), do: true
   defp redirect_to_https?(_proto), do: false
-  
+
   defp redirect_to_https(conn) do
     conn
     |> Plug.Conn.put_resp_header("location", get_current_url_as_proxied_https(conn))
@@ -70,7 +70,7 @@ defmodule PlugRedirectHttps do
   end
 
   defp rewrite_url_as_https(conn = %Plug.Conn{query_string: query_string}) do
-    https_url_with_path(get_forwarded_host(conn), Plug.Conn.full_path(conn), query_string)
+    https_url_with_path(get_forwarded_host(conn), conn.request_path, query_string)
   end
 
   defp https_url_with_path(host, path, ""), do: "https://#{host}#{path}"
