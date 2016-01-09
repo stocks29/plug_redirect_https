@@ -20,7 +20,7 @@ defmodule PlugRedirectHttps.Mixfile do
   end
 
   def package do
-    [ contributors: ["Bob Stockdale"],
+    [ maintainers: ["Bob Stockdale"],
     licenses: ["MIT License"],
     links: %{
       "GitHub" => "https://github.com/stocks29/plug_redirect_https.git",
