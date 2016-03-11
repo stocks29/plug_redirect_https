@@ -3,7 +3,7 @@ defmodule PlugRedirectHttps.Mixfile do
 
   def project do
     [app: :plug_redirect_https,
-     version: "0.0.5",
+     version: "0.0.6",
      elixir: "~> 1.0",
      name: "plug_redirect_https",
      source_url: "https://github.com/stocks29/plug_redirect_https",
@@ -47,8 +47,8 @@ defmodule PlugRedirectHttps.Mixfile do
   defp deps do
     [
       {:plug, "~> 1.1.1"},
-      {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.7", only: :dev}
+      {:earmark, "~> 0.2.1", only: :dev},
+      {:ex_doc, "~> 0.11.4", only: :dev}
     ]
   end
 end
